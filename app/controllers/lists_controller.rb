@@ -1,16 +1,18 @@
 class ListsController < ApplicationController
+  def edit
+    @list = List.find(params[:id])
+  end
+
   def index
   @lists = List.all
-  render :index
 end
 
 def show
   @list = List.find(params[:id])
-  render :show
 end
 
 def new
-  render :new
+  @list = List.new
 end
 
   def create
@@ -21,9 +23,9 @@ end
       render :new
     end
   end
+end
 
   private
   def list_params
     params.require(:list).permit(:name)
   end
-end
