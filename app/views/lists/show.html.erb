@@ -1,7 +1,9 @@
+<% content_for(:title, "List | To Do") %>
+
 <h1><%= @list.name %></h1>
 
 <% if @list.tasks.any? %>
-  <h4>Here are the tasks for this list:</h4>
+  <h4>List Tasks:</h4>
 
   <ul>
     <% @list.tasks.each do |task| %>
@@ -15,12 +17,13 @@
     <% end %>
   </ul>
 <% else %>
-  <p>There are no tasks yet!</p>
+  <p>There are no tasks</p>
 <% end %>
 
-<p><%= link_to "Add a task", new_list_task_path(@list) %></p>
-<p><%= link_to "Delete List", list_path(@list),
-                        :data => {:confirm => "Are you sure?",
-                                       :method => "delete"} %></p>
-
-<p><%= link_to "Return to lists", lists_path %></p>
+  <div class="links"
+    <p><%= link_to "Add a task", new_list_task_path(@list) %>
+      <%= link_to "Delete List", list_path(@list),
+                            :data => {:confirm => "Are you sure?",
+                                           :method => "delete"} %>
+                  <%= link_to "Return to lists", lists_path %></p>
+  </div>

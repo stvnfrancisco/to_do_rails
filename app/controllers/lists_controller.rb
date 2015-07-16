@@ -1,12 +1,28 @@
 class ListsController < ApplicationController
-  def destroy
-    @list = List.find(params[:id])
-    @list.destroy
-    redirect_to lists_path
+  def index
+    @lists = List.all
   end
-  
+
   def new
-    render :new
+    @list = List.new
+  end
+
+  def show
+    @list = List.find(params[:id])
+  end
+
+  def create
+    @list = List.new(list_params)
+    if @list.save
+      flash[:notice] = "List added"
+      redirect_to  lists_path
+    else
+      render :new
+    end
+  end
+
+  def edit
+    @list = List.find(params[:id])
   end
 
   def update
@@ -18,33 +34,15 @@ class ListsController < ApplicationController
     end
   end
 
-  def edit
+  def destroy
     @list = List.find(params[:id])
+    @list.destroy
+    redirect_to lists_path
   end
-
-  def index
-  @lists = List.all
-end
-
-def show
-  @list = List.find(params[:id])
-end
-
-def new
-  @list = List.new
-end
-
-  def create
-    @list = List.new(list_params)
-    if @list.save
-      redirect_to  lists_path
-    else
-      render :new
-    end
-  end
-end
 
   private
   def list_params
-    params.require(:list).permit(:name, :description)
+    params.require(:list).permit(:name)
   end
+
+end
