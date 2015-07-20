@@ -1,3 +1,5 @@
-<h1>New task for <%= @list.name %></h1>
+<% content_for(:title, "New task | To Do") %>
 
-<%= render 'form' %>
+<h1>New task for <%= @task.list.name %></h1>
+
+<%= render('form') %>

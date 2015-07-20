@@ -8,6 +8,7 @@ class TasksController < ApplicationController
     @list = List.find(params[:list_id])
     @task = @list.tasks.new(task_params)
     if @task.save
+      flash[:notice] = "Task successfully added!"
       redirect_to list_path(@task.list)
     else
       render :new
@@ -16,14 +17,14 @@ class TasksController < ApplicationController
 
   def edit
     @list = List.find(params[:list_id])
-    @task = @list.tasks.find(params[:id])
+    @task = Task.find(params[:id])
   end
 
   def update
-    @list= List.find(params[:list_id])
-    @task = @list.tasks.find(params[:id])
+    @list = List.find(params[:list_id])
+    @task = Task.find(params[:id])
     if @task.update(task_params)
-      flash[:notice] = "Task has been edited."
+      flash[:notice] = "Task successfully updated!"
       redirect_to list_path(@task.list)
     else
       render :edit
@@ -31,15 +32,15 @@ class TasksController < ApplicationController
   end
 
   def destroy
-    @list = List.find(params[:list_id])
-    @task = @list.tasks.find(params[:id])
+    @task = Task.find(params[:id])
     @task.destroy
-    flash[:notice] = "Deleted"
+    flash[:notice] = "Task successfully deleted."
     redirect_to list_path(@task.list)
   end
 
-private
+  private
   def task_params
     params.require(:task).permit(:description)
   end
+
 end
